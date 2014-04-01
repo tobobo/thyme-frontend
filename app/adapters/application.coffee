@@ -1,5 +1,5 @@
 ApplicationAdapter = DS.RESTAdapter.extend
-  host: 'localhost:8888'
+  host: 'http://localhost:8888'
   ajaxOptions: (url, type, hash) ->
     hash = hash || {}
     hash.xhrFields = hash.xhrFields || {}
