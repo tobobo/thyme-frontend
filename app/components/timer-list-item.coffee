@@ -4,6 +4,32 @@ TimerListItemComponent = Ember.Component.extend
     endTime = if @get('timer.endTime') then @get('timer.endTime').getTime() else 0
     (endTime - startTime)/1000
   ).property 'timer.startTime', 'timer.endTime'
+  endTimeUpdating: false
+
+  didInsertElement: ->
+    @startUpdating()
+
+  runningDidChange: (->
+    @startUpdating()
+  ).observes 'timer.running'
+
+  endTimeUpdater: ->
+    if @get('endTimeUpdating')
+      @set 'timer.endTime', new Date()
+      @waitToUpdate()
+
+  startUpdating: ->
+    if @get('timer.running')
+      @set 'endTimeUpdating', true
+      @endTimeUpdater()
+    else
+      @set 'endTimeUpdating', false
+
+  waitToUpdate: ->
+    Ember.run.later =>
+      @endTimeUpdater()
+    , 1000
+
   actions:
     stop: ->
       if @get('timer.running')
