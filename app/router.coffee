@@ -4,12 +4,16 @@ Router = Ember.Router.extend
 Router.map ->
   @route '/'
   @resource 'clients',
-    path: '/clients/'
+    path: 'clients'
   , ->
     @route 'new'
     @resource 'client',
       path: ':clientSlug'
     , ->
-      return
+      @resource 'tasks',
+        path: 'tasks'
+      , ->
+        @resource 'task',
+          path: ':taskSlug'
 
 `export default Router`
