@@ -1,0 +1,10 @@
+{{new-timer tagName='li' timer=newTimer}}
+{{#if timers.isLoading}}
+  <li>loading timers...</li>
+{{else}}
+  {{#each timers}}
+    <li>timer!</li>
+  {{else}}
+    <li>no timers</li>
+  {{/each}}
+{{/if}}

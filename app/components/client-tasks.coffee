@@ -1,4 +1,3 @@
-ClientTasksComponent = Ember.Component.extend
-  tasks: []
+ClientTasksComponent = Ember.Component.extend()
 
 `export default ClientTasksComponent`
