@@ -21,6 +21,9 @@ TaskController = Ember.ObjectController.extend
     if @get('id')?
       timer = @store.createRecord 'timer',
         taskId: @get('id')
+        startTime: new Date()
+        endTime: new Date()
+        running: true
       timer.one 'didCreate', =>
         @get('timers').unshiftObject timer
       timer

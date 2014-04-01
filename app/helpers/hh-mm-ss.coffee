@@ -1,5 +1,5 @@
 hhmmssHelper = Ember.Handlebars.makeBoundHelper (seconds) ->
-  separator ":" 
+  separator = ":" 
   minutesInHour = 60
   secondsInMinute = 60
   secondsInHour = minutesInHour*secondsInMinute
@@ -7,7 +7,7 @@ hhmmssHelper = Ember.Handlebars.makeBoundHelper (seconds) ->
   hours = Math.floor seconds/secondsInHour
   hoursRemainder = seconds%secondsInHour
   minutes = Math.floor hoursRemainder/secondsInMinute
-  seconds = hoursRemainder%secondsInMinute
+  seconds = Math.floor hoursRemainder%secondsInMinute
 
   sections = []
 
