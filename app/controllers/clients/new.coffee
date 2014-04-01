@@ -1,6 +1,6 @@
 ClientsNewController = Ember.ObjectController.extend
   modelDidSave: (->
     if !@get('model.isNew')
-      @transitionToRoute('clients')
+      @transitionToRoute('client', @get('model'))
   ).observes 'model.isNew'
 `export default ClientsNewController`

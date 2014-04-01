@@ -8,6 +8,8 @@ Router.map ->
   , ->
     @route 'new'
     @resource 'client',
-      path: '/:clientSlug'
+      path: ':clientSlug'
+    , ->
+      return
 
 `export default Router`
