@@ -5,12 +5,11 @@ TimerListItemComponent = Ember.Component.extend
     (endTime - startTime)/1000
   ).property 'timer.startTime', 'timer.endTime'
   actions:
-    start: ->
-      unless @get('timer.running')
+    stop: ->
+      if @get('timer.running')
         @get('timer').setProperties
-          running: true
-          startTime: new Date()
-          endTime: new Date((new Date()).getTime() + 1000)
+          running: false
+          endTime: new Date()
         @get('timer').save()
 
 `export default TimerListItemComponent`

@@ -1,4 +1,20 @@
 TaskController = Ember.ObjectController.extend
+  sortedTimers: Ember.computed.sort 'timers', (a, b) ->
+    aStart = a.get('startTime')
+    bStart = b.get('startTime')
+    if aStart? and bStart?
+      if aStart > bStart
+        -1
+      else if aStart < bStart
+        1
+      else
+        0
+    else if aStart?
+      -1
+    else if bStart?
+      1
+    else
+      0
   timers: ((prop, value) ->
     if value? then value
     else
