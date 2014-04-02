@@ -1,7 +1,7 @@
 ApplicationController = Ember.ObjectController.extend
   currentTimer: null
   setTimer: (timer) ->
-    if @get('currentTimer')?
+    if @get('currentTimer.running')
       @get('currentTimer').setProperties
         endTime: new Date()
         running: false

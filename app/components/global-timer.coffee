@@ -5,8 +5,16 @@ GlobalTimerComponent = Ember.Component.extend
     @startUpdating()
 
   runningDidChange: (->
-    @startUpdating()
+    if @get('timer.running') and not @get('endTimeUpdating')
+      @startUpdating()
+    else if not @get('timer.running')
+      @set('endTimeUpdating', false)
+      Ember.run.cancel(@get('updateTimer'))
+
   ).observes 'timer.running'
+
+  endTimeUpdatingDidChange: (->
+  ).observesBefore 'endTimeUpdating'
 
   endTimeUpdater: ->
     if @get('endTimeUpdating')
@@ -21,13 +29,14 @@ GlobalTimerComponent = Ember.Component.extend
       @set 'endTimeUpdating', false
 
   waitToUpdate: ->
-    Ember.run.later =>
+    @set 'updateTimer', Ember.run.later( =>
       @endTimeUpdater()
-    , 1000
+    , 1000)
 
   actions:
     stop: ->
       if @get('timer.running')
+        Ember.run.cancel @get('updateTimer')
         @get('timer').setProperties
           running: false
           endTime: new Date()

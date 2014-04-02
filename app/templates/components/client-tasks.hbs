@@ -1,5 +1,5 @@
 {{#each tasks}}
-  <li>{{#link-to 'task' this}}{{name}} ({{hh-mm-ss calculatedDuration}}){{/link-to}}</li>
+  <li>{{#link-to 'task' this}}{{name}} ({{task-info task=this}}){{/link-to}}</li>
 {{else}}
   <li>no tasks</li>
 {{/each}}

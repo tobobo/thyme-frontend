@@ -5,7 +5,7 @@ Task = DS.Model.extend
   duration: DS.attr 'number'
   calculatedDuration: (->
     if @cacheFor('timers')?
-      mapped = @get('timers').mapProperty('duration').reduce (a, b) ->
+      Math.round @get('timers').mapProperty('duration').reduce (a, b) ->
         a + b
       , 0
     else
@@ -29,5 +29,13 @@ Task = DS.Model.extend
         content: []
         isLoading: true
   ).property 'id'
+  calculatedRate: (->
+    rate = @get('rate') or @get('client.rate')
+    if rate then rate else null
+  ).property 'client.rate', 'rate'
+  calculatedEarnings: (->
+    console.log @get('calculatedDuration'), @get('calculatedRate')
+    @get('calculatedDuration')*@get('calculatedRate')/(60*60)
+  ).property 'calculatedDuration', 'calculatedRate'
 
 `export default Task`

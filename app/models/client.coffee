@@ -3,5 +3,6 @@ Client = DS.Model.extend
   slug: DS.attr 'string'
   email: DS.attr 'string'
   contact: DS.attr 'string'
+  rate: DS.attr 'number'
 
 `export default Client`

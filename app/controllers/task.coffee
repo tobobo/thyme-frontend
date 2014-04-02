@@ -1,17 +1,17 @@
 TaskController = Ember.ObjectController.extend
   sortedTimers: Ember.computed.sort 'timers', (a, b) ->
-    aStart = a.get('startTime')
-    bStart = b.get('startTime')
-    if aStart? and bStart?
-      if aStart > bStart
+    aEnd = a.get('endTime')
+    bEnd = b.get('endTime')
+    if aEnd? and bEnd?
+      if aEnd > bEnd
         -1
-      else if aStart < bStart
+      else if aEnd < bEnd
         1
       else
         0
-    else if aStart?
+    else if aEnd?
       -1
-    else if bStart?
+    else if bEnd?
       1
     else
       0
@@ -21,13 +21,10 @@ TaskController = Ember.ObjectController.extend
         taskId: @get('id')
         task: @get('model')
         client: @get('client')
-        startTime: new Date()
-        endTime: new Date()
-        running: true
-      timer.one 'didCreate', =>
-        if timer.get('running')?
-          Ember.get('App.applicationController').setTimer timer
-        @get('timers').unshiftObject timer
+      timer.one 'didCreate', (thisTimer) =>
+        if thisTimer.get('running')?
+          Ember.get('App.applicationController').setTimer thisTimer
+        @get('timers').pushObject thisTimer
       timer
   ).property 'id', 'newTimer.isNew'
 

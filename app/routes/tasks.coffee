@@ -5,5 +5,6 @@ TasksRoute = Ember.Route.extend
 
   afterModel: (model) ->
     model.set 'client', @modelFor('client')
+    model.setEach 'client', @modelFor('client')
 
 `export default TasksRoute`
