@@ -1,4 +1,5 @@
 import Resolver from 'ember/resolver';
+// import ApplicationControllerInitializer from 'appkit/initializers/application_controller';
 
 var App = Ember.Application.extend({
   LOG_ACTIVE_GENERATION: true,

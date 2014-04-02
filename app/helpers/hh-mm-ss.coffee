@@ -13,7 +13,7 @@ hhmmssHelper = Ember.Handlebars.makeBoundHelper (seconds) ->
 
   if hours > 0 then sections.push "#{hours}"
 
-  if minutes < 10 and hours > 0 then sections.push "0#{minutes}"
+  if (hours == 0 and minutes == 0) or (hours > 0 and minutes < 10) then sections.push "0#{minutes}"
   else sections.push "#{minutes}"
 
   if seconds < 10 then sections.push "0#{seconds}"
