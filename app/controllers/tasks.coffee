@@ -7,6 +7,6 @@ TasksController = Ember.ArrayController.extend
         @get('model').pushObject task
         @transitionToRoute 'task', task
       task
-  ).property 'model.client.id', 'newTask.isSaved'
+  ).property 'model.client.id', 'newTask.isNew'
 
 `export default TasksController`
