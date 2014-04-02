@@ -7,10 +7,10 @@ NewTimerComponent = Ember.Component.extend
   ).property 'hours', 'minutes', 'seconds'
   actions:
     save: (properties) ->
-      debugger
       if @get('timer')?
         @get('timer').setProperties properties
         @get('timer').save()
+        
     start: ->
       @send 'save',
         startTime: new Date()

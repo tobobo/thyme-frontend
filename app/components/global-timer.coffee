@@ -1,6 +1,8 @@
 GlobalTimerComponent = Ember.Component.extend
   endTimeUpdating: false
 
+  updateDuration: 1000
+
   didInsertElement: ->
     @startUpdating()
 
@@ -31,7 +33,7 @@ GlobalTimerComponent = Ember.Component.extend
   waitToUpdate: ->
     @set 'updateTimer', Ember.run.later( =>
       @endTimeUpdater()
-    , 1000)
+    , @get('updateDuration'))
 
   actions:
     stop: ->

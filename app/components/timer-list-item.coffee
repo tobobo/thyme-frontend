@@ -8,4 +8,9 @@ TimerListItemComponent = Ember.Component.extend
           endTime: new Date()
         @get('timer').save()
 
+    delete: ->
+      @get('timer.task.timers').removeObject @get('timer')
+      @get('timer').deleteRecord()
+      @get('timer').save()
+
 `export default TimerListItemComponent`

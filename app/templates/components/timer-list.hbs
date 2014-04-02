@@ -3,7 +3,7 @@
   <li>loading timers...</li>
 {{else}}
   {{#each timers}}
-    {{timer-list-item tagName='li' timer=this}}
+    {{timer-list-item tagName='li' timer=this timers=timers}}
   {{else}}
     <li>no timers</li>
   {{/each}}

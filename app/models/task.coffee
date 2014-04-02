@@ -5,7 +5,7 @@ Task = DS.Model.extend
   duration: DS.attr 'number'
   calculatedDuration: (->
     if @cacheFor('timers')?
-      Math.round @get('timers').mapProperty('duration').reduce (a, b) ->
+      @get('timers').mapProperty('duration').reduce (a, b) ->
         a + b
       , 0
     else
@@ -18,6 +18,7 @@ Task = DS.Model.extend
         @store.find 'timer',
           taskId: @get('id')
         .then (timers) =>
+          timers.setEach 'task', @
           @set prop, timers
         , (error) =>
           console.log 'error getting timers', error
@@ -34,7 +35,6 @@ Task = DS.Model.extend
     if rate then rate else null
   ).property 'client.rate', 'rate'
   calculatedEarnings: (->
-    console.log @get('calculatedDuration'), @get('calculatedRate')
     @get('calculatedDuration')*@get('calculatedRate')/(60*60)
   ).property 'calculatedDuration', 'calculatedRate'
 
