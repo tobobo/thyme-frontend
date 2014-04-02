@@ -9,6 +9,9 @@ TaskRoute = Ember.Route.extend
     , (error) =>
       reject error
 
+  afterModel: (model) ->
+    model.set 'client', @modelFor('client')
+
   serialize: (model) ->
     taskSlug: model.get('slug')
 
