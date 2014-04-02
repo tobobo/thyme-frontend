@@ -1,12 +1,12 @@
 TasksController = Ember.ArrayController.extend
   newTask: (->
-    if @get('client.id')?
+    if @get('model.client.id')?
       task = @store.createRecord 'task',
-        clientId: @get('client.id')
+        clientId: @get('model.client.id')
       task.one 'didCreate', =>
         @get('model').pushObject task
         @transitionToRoute 'task', task
       task
-  ).property 'client.id', 'newTask.isNew'
+  ).property 'model.client.id', 'newTask.isNew'
 
 `export default TasksController`
