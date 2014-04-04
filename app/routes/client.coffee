@@ -9,6 +9,6 @@ ClientRoute = Ember.Route.extend
         reject error
 
   serialize: (model) ->
-    clientSlug: model.get('slug')
+    slug: model.get('slug')
 
 `export default ClientRoute`

@@ -8,18 +8,18 @@ Router.map ->
   , ->
     @route 'new'
     @resource 'client',
-      path: ':clientSlug'
+      path: ':slug'
     , ->
       @resource 'tasks',
         path: 'tasks'
       , ->
         @resource 'task',
-          path: ':taskSlug'
+          path: ':slug'
       @resource 'invoices',
         path: 'invoices'
       , ->
         @resource 'invoice',
-          path: ':taskSlug'
+          path: ':id'
         @route 'new',
           path: 'new'
 

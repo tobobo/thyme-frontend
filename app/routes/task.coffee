@@ -13,6 +13,6 @@ TaskRoute = Ember.Route.extend
     model.set 'client', @modelFor('client')
 
   serialize: (model) ->
-    taskSlug: model.get('slug')
+    slug: model.get('slug')
 
 `export default TaskRoute`
