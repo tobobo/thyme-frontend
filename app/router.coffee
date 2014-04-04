@@ -15,5 +15,12 @@ Router.map ->
       , ->
         @resource 'task',
           path: ':taskSlug'
+      @resource 'invoices',
+        path: 'invoices'
+      , ->
+        @resource 'invoice',
+          path: ':taskSlug'
+        @route 'new',
+          path: 'new'
 
 `export default Router`

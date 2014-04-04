@@ -1,0 +1,21 @@
+<div class="invoice-container">
+  <h1>Invoice</h1>
+  <p>{{invoice.client.name}}</p>
+  <p>{{invoice.createdAt}}</p>
+  <p>Invoice Number: {{invoice.number}}</p>
+
+  <ul>
+    {{#each invoice.client.tasks}}
+      <li>
+        <span>{{name}}</span>
+        <span>{{hh-mm-ss calculatedDuration}}</span>
+        <span>{{x-money calculatedEarnings}}</span>
+      </li>
+    {{/each}}
+    <li>
+      <span>Total</span>
+      <span>{{hh-mm-ss invoice.totalDuration}}</span>
+      <span>{{x-money invoice.totalEarnings}}</span>
+    </li>
+  </ul>
+</div>

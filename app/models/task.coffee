@@ -14,6 +14,7 @@ Task = DS.Model.extend
   timers: ((prop, value) ->
     if value? then value
     else
+      console.log 'creating timers'
       if @get('id')?
         @store.find 'timer',
           taskId: @get('id')
