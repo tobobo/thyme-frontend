@@ -21,7 +21,7 @@ TaskController = Ember.ObjectController.extend
         taskId: @get('id')
         client: @get('client')
       timer.one 'didCreate', (thisTimer) =>
-        thisTimer.set 'task', @get('task')
+        thisTimer.set 'task', @get('model')
         if thisTimer.get('running')
           Ember.get('App.applicationController').setTimer thisTimer
         @get('timers').pushObject thisTimer

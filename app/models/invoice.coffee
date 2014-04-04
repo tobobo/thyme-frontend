@@ -3,6 +3,8 @@ Invoice = DS.Model.extend
   clientId: DS.attr 'string'
   html: DS.attr 'string'
   createdAt: DS.attr 'date'
+  fileUrl: DS.attr 'string'
+  path: DS.attr 'string'
   totalEarnings: (->
     if @get('client.tasks')?
       @get('client.tasks').mapBy('calculatedEarnings').reduce (a, b) ->

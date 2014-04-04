@@ -8,13 +8,13 @@ Router.map ->
   , ->
     @route 'new'
     @resource 'client',
-      path: ':slug'
+      path: ':clientSlug'
     , ->
       @resource 'tasks',
         path: 'tasks'
       , ->
         @resource 'task',
-          path: ':slug'
+          path: ':taskSlug'
       @resource 'invoices',
         path: 'invoices'
       , ->
