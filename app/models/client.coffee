@@ -4,6 +4,8 @@ Client = DS.Model.extend
   email: DS.attr 'string'
   contact: DS.attr 'string'
   rate: DS.attr 'number'
+  invoicePrefix: DS.attr 'string'
+  nextInvoice: DS.attr 'number'
   getTasks: ->
     @store.find 'task',
       clientId: @get('id')

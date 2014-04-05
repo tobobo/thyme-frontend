@@ -19,7 +19,7 @@ Router.map ->
         path: 'invoices'
       , ->
         @resource 'invoice',
-          path: ':invoiceId'
+          path: ':invoiceNumber'
         @route 'new',
           path: 'new'
 
