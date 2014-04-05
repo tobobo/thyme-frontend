@@ -3,9 +3,9 @@ TaskRoute = Ember.Route.extend
     @store.find 'task',
       slug: params.taskSlug
       clientId: @modelFor('client').get('id')
-    .then (clients) =>
+    .then (tasks) =>
       new Ember.RSVP.Promise (resolve, reject) =>
-        resolve clients.get('firstObject')
+        resolve tasks.get('firstObject')
     , (error) =>
       reject error
 

@@ -1,7 +1,14 @@
 InvoiceRoute = Ember.Route.extend
-  setupController: (controller, model) ->
-    controller.set 'model', model
+  model: (params) ->
+    @modelFor('client').getTasks().then =>
+      @store.find 'invoice', params.invoiceId
+  afterModel: (model) ->
+    model.set 'client', @modelFor('client')
     if model.get('download')
-      window.open model.get('fileUrl')
+      window.open model.get('fileUrl'), '_blank'
+
+  serialize: (model) ->
+    invoiceId: model.get('id')
+
 
 `export default InvoiceRoute`

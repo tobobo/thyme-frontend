@@ -1,5 +1,5 @@
 ClientIndexRoute = Ember.Route.extend
-  beforeModel: ->
+  afterModel: ->
     @transitionTo 'tasks'
 
 
