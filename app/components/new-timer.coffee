@@ -5,6 +5,25 @@ NewTimerComponent = Ember.Component.extend
   newTimerDuration: (->
     +@get('hours')*60*60 + +@get('minutes')*60 + +@get('seconds')
   ).property 'hours', 'minutes', 'seconds'
+
+  didInsertElement: ->
+    $('.quick-add input').on 'keydown.newtimer', (e) =>
+      if e.keyCode == 13
+        @send 'quickAdd'
+
+    $('body').on 'keydown.newtimer', (e) =>
+      if e.ctrlKey
+        if e.keyCode == 84
+          unless @get('globalTimer.running')
+            @send 'start'
+        else if e.keyCode == 65
+          Ember.run.next =>
+            @$('.quick-add input:first').select()
+
+  willDestroyElement: ->
+    $('body').off 'keydown.newtimer'
+    $('.quick-add input').off 'keydown.newtimer'
+
   actions:
     save: (properties) ->
       if @get('timer')?

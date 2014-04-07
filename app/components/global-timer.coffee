@@ -6,6 +6,14 @@ GlobalTimerComponent = Ember.Component.extend
   didInsertElement: ->
     @startUpdating()
 
+    $('body').on 'keydown.globaltimer', (e) =>
+      if e.ctrlKey
+        if e.keyCode == 190
+          @send 'stop'
+
+  willDestroyElement: ->
+    $('body').off 'keydown.globaltimer'
+
   runningDidChange: (->
     if @get('timer.running') and not @get('endTimeUpdating')
       @startUpdating()
