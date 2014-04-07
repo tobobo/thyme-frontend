@@ -14,3 +14,11 @@ body {
     min-height: 1056px;
   }
 }
+
+a {
+    color: #888;
+}
+
+a.active {
+    color: blue;
+}
