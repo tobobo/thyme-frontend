@@ -3,6 +3,6 @@ RenderInvoiceComponent = Ember.Component.extend
     @saveHTML()
 
   saveHTML: ->
-    @set 'invoice.html', @$().html()
+    @set 'invoice.html', @$().html().replace(/<script[^<]*<\/script>/g, '')
 
 `export default RenderInvoiceComponent`

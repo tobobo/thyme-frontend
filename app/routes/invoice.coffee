@@ -1,12 +1,10 @@
 InvoiceRoute = Ember.Route.extend
   model: (params) ->
-    @modelFor('client').getTasks().then =>
-      debugger
-      @store.find 'invoice',
-        number: params.invoiceNumber
-      .then (invoices) =>
-        new Ember.RSVP.Promise (resolve, reject) =>
-          resolve invoices.get('firstObject')
+    @store.find 'invoice',
+      number: params.invoiceNumber
+    .then (invoices) =>
+      new Ember.RSVP.Promise (resolve, reject) =>
+        resolve invoices.get('firstObject')
 
   afterModel: (model) ->
     model.set 'client', @modelFor('client')
