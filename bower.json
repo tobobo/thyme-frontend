@@ -11,6 +11,7 @@
     "ic-ajax": "~0.3.0",
     "ember-testing-httpRespond": "~0.1.1",
     "loader.js": "git://github.com/stefanpenner/loader.js",
-    "accounting": "git://github.com/josscrowcroft/accounting.js.git"
+    "accounting": "git://github.com/josscrowcroft/accounting.js.git",
+    "moment": "~2.5.1"
   }
 }
