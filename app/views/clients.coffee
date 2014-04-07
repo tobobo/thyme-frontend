@@ -7,7 +7,7 @@ ClientsView = Ember.View.extend
           if e.shiftKey
             @get('controller').transitionToRoute('clients.new')
         else if e.keyCode >= 49 and e.keyCode <= 57
-          unless e.shiftKey
+          if e.shiftKey
             client = @get('controller.model').objectAt e.keyCode - 49
             if client? then @get('controller').transitionToRoute 'client', client
 

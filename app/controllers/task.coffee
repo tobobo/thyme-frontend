@@ -27,6 +27,10 @@ TaskController = Ember.ObjectController.extend
         @get('timers').pushObject thisTimer
       timer
   ).property 'id', 'newTimer.isNew'
+  actions:
+    nextTask: -> true
+
+    previousTask: -> true
 
 
 `export default TaskController`
