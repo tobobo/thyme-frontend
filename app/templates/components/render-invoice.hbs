@@ -1,21 +1,31 @@
+<style type="text/css">
+  {{{partial 'invoice_themes/default'}}}
+</style>
 <div class="invoice-container">
   <h1>Invoice</h1>
   <p>{{invoice.client.name}}</p>
   <p>{{invoice.createdAt}}</p>
   <p>Invoice Number: {{invoice.number}}</p>
 
-  <ul>
+  <ul class="tasks">
     {{#each invoice.client.tasks}}
       <li>
-        <span>{{name}}</span>
-        <span>{{hh-mm-ss calculatedDuration}}</span>
-        <span>{{x-money calculatedEarnings}}</span>
+        <span class="row-label">
+          {{name}}
+        </span><span class="duration">
+          {{hh-mm-ss calculatedDuration}}
+        </span><span class="earnings">
+          {{x-money calculatedEarnings}}
+        </span>
       </li>
     {{/each}}
-    <li>
-      <span>Total</span>
-      <span>{{hh-mm-ss invoice.totalDuration}}</span>
-      <span>{{x-money invoice.totalEarnings}}</span>
+    <li class="total">
+      <span class="row-label">total
+      </span><span class="duration">
+        {{hh-mm-ss invoice.totalDuration}}
+      </span><span class="earnings">
+        {{x-money invoice.totalEarnings}}
+      </span>
     </li>
   </ul>
 </div>

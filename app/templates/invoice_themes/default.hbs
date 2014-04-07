@@ -1,0 +1,64 @@
+@media print {
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-weight: 100;
+  }
+}
+
+.invoice-container {
+  width: 100%;
+  max-width: 960px;
+  padding: 40px;
+  box-sizing: border-box;
+  font-family: "Helvetica";
+  font-weight: 300;
+  color: #444;
+}
+
+@media screen {
+  .invoice-container {
+    border: 1px solid #000;
+  }
+}
+
+.invoice-container h1 {
+  font-weight: 100;
+}
+
+.invoice-container ul.tasks {
+  list-style-type: none;
+  margin: 0 20px;
+  padding: 0;
+}
+
+.invoice-container ul.tasks li {
+  padding: 5px;
+  margin: 0;
+}
+
+.invoice-container ul.tasks li:nth-child(even):not(.total) {
+  background-color: #F8F8FF;
+}
+
+.invoice-container ul.tasks li span {
+  display: inline-block;
+  width: 33%;
+  text-align: right;
+}
+
+.invoice-container ul.tasks li span.row-label {
+  text-align: left;
+}
+
+.invoice-container ul.tasks li.total {
+  margin-top: 1em;
+}
+
+.invoice-container ul.tasks li.total span.row-label {
+  color: #888;
+}
+
+.invoice-container ul.tasks li.total span.earnings {
+  font-weight: 400;
+}
