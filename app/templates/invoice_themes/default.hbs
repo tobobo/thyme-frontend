@@ -7,33 +7,40 @@
 }
 
 .invoice-container {
-  width: 100%;
-  max-width: 960px;
   padding: 40px;
   box-sizing: border-box;
-  font-family: "Helvetica";
+  font-family: "Helvetica", sans-serif;
   font-weight: 300;
   color: #444;
 }
 
-@media screen {
-  .invoice-container {
-    border: 1px solid #000;
-  }
+.invoice-container .label {
+  color: #CCC;
+}
+
+.invoice-container .invoice-number .label {
+  color: #444;
 }
 
 .invoice-container h1 {
   font-weight: 100;
+  margin-bottom: 2em;
 }
 
 .invoice-container ul.tasks {
   list-style-type: none;
-  margin: 0;
+  margin: 4em 0 0;
   padding: 0;
 }
 
+.invoice-container .to, .invoice-container .from {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+
 .invoice-container ul.tasks li {
-  padding: 5px;
+  padding: 0.5em;
   margin: 0;
 }
 
@@ -42,23 +49,29 @@
 }
 
 .invoice-container ul.tasks li span {
+  vertical-align: top;
   display: inline-block;
-  width: 33%;
+  width: 25%;
   text-align: right;
 }
 
-.invoice-container ul.tasks li span.row-label {
+.invoice-container ul.tasks li span:first-child {
+  width: 50%;
+}
+
+.invoice-container ul.tasks li span.row-label, .invoice-container ul.tasks li.headings span:first-child {
   text-align: left;
 }
 
-.invoice-container ul.tasks li.total {
-  margin-top: 1em;
+.invoice-container ul.tasks li.total span:last-child {
+  margin-right: -0.5em;
 }
 
-.invoice-container ul.tasks li.total span.row-label {
-  color: #888;
+.invoice-container ul.tasks li.total span {
+  margin-top: 1em;
+  padding-top: 1em;
 }
 
 .invoice-container ul.tasks li.total span.earnings {
-  font-weight: 400;
+  font-weight: 800;
 }

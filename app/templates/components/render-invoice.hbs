@@ -3,11 +3,31 @@
 </style>
 <div class="invoice-container">
   <h1>Invoice</h1>
-  <p>{{invoice.client.name}}</p>
+  <p class="invoice-number"><span class="label">#</span>{{invoice.number}}</p>
   <p>{{x-date invoice.createdAt 'M/D/YYYY'}}</p>
-  <p>Invoice Number: {{invoice.number}}</p>
+  <div class="contacts">
+    <div class="to">
+      <p class="label">to:</p>
+      {{invoice.client.name}}</br>
+      {{pretty-text invoice.client.contact}}
+    </div><div class="from">
+      <p class="label">from:</p>
+      Tobias Butler<br>
+      415 559 8023<br>
+      tobiasab@gmail.com
+    </div>
+  </div>
 
   <ul class="tasks">
+    <li class="headings label">
+      <span>
+        description
+      </span><span>
+        hrs/qty
+      </span><span>
+        cost
+      </span>
+    </li>
     {{#each invoice.client.tasks}}
       <li>
         <span class="row-label">
@@ -20,7 +40,7 @@
       </li>
     {{/each}}
     <li class="total">
-      <span class="row-label">total
+      <span class="row-label label">total
       </span><span class="duration">
         {{hh-mm-ss invoice.totalDuration}}
       </span><span class="earnings">
