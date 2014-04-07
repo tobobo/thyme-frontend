@@ -11,7 +11,7 @@ InvoicesNewRoute = Ember.Route.extend
     client = @modelFor('client')
     invoice = @store.createRecord 'invoice',
       clientId: client.get('id')
-      number: client.get('invoicePrefix') + client.get('nextInvoice')
+      number: client.get('invoicePrefix') + client.get('nextInvoiceFormatted')
       createdAt: new Date()
 
   afterModel: (model) ->

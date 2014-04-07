@@ -6,6 +6,11 @@ Client = DS.Model.extend
   rate: DS.attr 'number'
   invoicePrefix: DS.attr 'string'
   nextInvoice: DS.attr 'number'
+  nextInvoiceFormatted: (->
+    nextInvoice = "#{@get('nextInvoice')}"
+    nextInvoice = 0 + nextInvoice while nextInvoice.length < 5
+    nextInvoice
+  ).property 'nextInvoice'
   getTasks: ->
     @store.find 'task',
       clientId: @get('id')
