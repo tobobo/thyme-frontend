@@ -1,4 +1,4 @@
-Invoice = DS.Model.extend
+Invoice = DS.Model.extend Ember.Evented,
   number: DS.attr 'string'
   clientId: DS.attr 'string'
   html: DS.attr 'string'

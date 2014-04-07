@@ -4,8 +4,7 @@ ClientRoute = Ember.Route.extend
     @store.find 'client',
       slug: params.clientSlug
     .then (clients) =>
-      new Ember.RSVP.Promise (resolve, reject) =>
-        resolve clients.get('firstObject')
+      Ember.RSVP.resolve clients.get('firstObject')
 
   serialize: (model) ->
     clientSlug: model.get('slug')

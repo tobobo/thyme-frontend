@@ -15,9 +15,8 @@ Client = DS.Model.extend
     @store.find 'task',
       clientId: @get('id')
     .then (tasks) =>
-      new Ember.RSVP.Promise (resolve, reject) =>
-        @set 'tasks', tasks
-        tasks.setEach 'client', @
-        resolve tasks
+      @set 'tasks', tasks
+      tasks.setEach 'client', @
+      Ember.RSVP.resolve tasks
 
 `export default Client`
