@@ -171,13 +171,17 @@ module.exports = function(grunt) {
                      'htmlmin:dist' // Removes comments and whitespace
                      ]));
 
+  grunt.registerTask('deploy', "Generate assets with build:dist and deploy to s3.", filterAvailable([
+                     'dist',
+                     's3'
+                     ]))
+
   // Documentation
   // -------
   grunt.registerTask('docs', "Build YUIDoc documentation.", [
                      'buildDocs',
                      'server:debug'
                      ]);
-
 
   // Parallelize most of the build process
   _.merge(config, {

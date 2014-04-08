@@ -1,49 +1,64 @@
-# Ember App Kit [![Build Status](https://travis-ci.org/stefanpenner/ember-app-kit.png?branch=master)](https://travis-ci.org/stefanpenner/ember-app-kit)
+#### Thyme Frontend
+based on Ember App Kit
 
-Ember App Kit aims to be the foundation for ambitious web applications built with Ember. It will soon be replaced by an executable [ember-cli](https://github.com/stefanpenner/ember-cli) which dramatically improves buildtimes (via broccoli) and provides sane-upgrade paths, feel free to check that project out. We intend to provide a sensible upgrade path.
+### S3 
 
-This project has been extracted out of several real world applications and is actively used. Currently it covers the basics fairly well, but much still needs to be done. As we learn and as more contributors join in it continues to evolve. If you encounter any bugs, clunky features or missing documentation, just submit an issue and we'll respond ASAP.
+## Setup
+Go to the [S3 Management Console](https://console.aws.amazon.com/s3/home) and create a new S3 bucket. Let's call it my-thyme-bucket.
 
-At the very least, it helps setup your Ember.js applications directory structure.
+Edit the bucket's properties, go to "Static Website Hosting" and click "Enable website hosting." Enter index.html for both the "Index document" and "Error document" fields. This will ensure all requests go to the Ember app.
 
-We welcome ideas and experiments.
+Save these settings and click on "Permissions." Click "Add Bucket Policy" and paste in the following (replacing `my-thyme-bucket` with your own bucket name).
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AddPerm",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::my-thyme-bucket/*"
+    }
+  ]
+}
+```
+This allows all files on the web host to be automatically accessible to all users. Save this policy, and save your bucket permissions.
 
-## Getting Started
+Now, you need to get access keys for uploading the files to S3. Go to the [IAM Management Console](https://console.aws.amazon.com/iam/home) and add a new user (you can call it the same thing as your bucket). Download the security credentials when the users are created.
 
-* [Project Documentation Site](http://stefanpenner.github.io/ember-app-kit/)
-* [Getting Started Guide](http://stefanpenner.github.io/ember-app-kit/guides/getting-started.html)
-* [ember-app-kit-todos](https://github.com/stefanpenner/ember-app-kit-todos) - the Emberjs [todos](http://emberjs.com/guides/getting-started/) using Ember App Kit 
-* [ember-app-kit-bloggr](https://github.com/pixelhandler/ember-app-kit-example-with-bloggr-client) - bloggr demo
-* *Safari Books Online Blog* - [Introduction to Ember App Kit](http://blog.safaribooksonline.com/2013/09/18/ember-app-kit/) for more experienced Ember developers by @mixonic
-* *Ember Sherpa* - [Introduction to Ember App Kit](http://embersherpa.com/articles/introduction-to-ember-app-kit/) for those who are new to the Grunt workflow by @taras 
+Click on your new user in the user list and go to the "Permissions" tab for that user. Click "Attach User Policy" and add a policy such as this which allows reading and writing to your bucket. Again, replace `my-thyme-bucket` with your own bucket name.
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1396991223000",
+      "Effect": "Allow",
+      "Action": [
+        "s3:DeleteObject",
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::my-thyme-bucket/*"
+      ]
+    }
+  ]
+}
+```
 
+Seems kinda complicated. I agree.
 
-## Features
+## Configuration
 
-- Sane project structure
-- ES6 module transpiler support (easy, future-proof modules)
-- Module system-aware resolver (see [Referencing views](https://github.com/stefanpenner/ember-app-kit/wiki/Referencing-Views) and [Using Ember loaders](https://github.com/stefanpenner/ember-app-kit/wiki/Using-Ember-loaders))
-- Transparent project compilation & minification for easy deploys via [Grunt](http://gruntjs.com/)
-- Package management via [Bower](https://github.com/bower/bower)
-- Optional support for CoffeeScript, SASS, LESS or Stylus
-- Testing via QUnit, Ember Testing and Testem (with examples)
-- Linting via JSHint (including module syntax)
-- Catch-all `index.html` for easy reloading of pushState router apps
-- Generators via [Loom](https://github.com/cavneb/loom-generators-ember-appkit) (to generate routes, controllers, etc.)
+Now, you need to set the app's configuration for accessing your newly created bucket. Either set the config variables specified in tasks/options/s3.js or add the credentials directly to the file (you might want to remove it from git if you do this so that others don't see it).
 
-## Future Goals
+The s3 region can be seen in your bucket's static web host URL (static hosting URLs are of the format http://[bucket name].s3-website-[bucket region].amazonaws.com). Get the Access Key ID and Secret Access Key from the csv file you downloaded from Amazon after creating your new IAM user.
 
-- Source maps for transpiled modules
-- Easier to install 3rd party packages
-- Faster, more intelligent builds
+Copy config/environments/production.js.sample to config/environments/production.js and add the host of the thyme backend you'll be using. Also, in your thyme backend, be sure the URL of your client is present as a regex in your configuration's clients array so that requests will be allowed from your client.
 
-Think anything else is missing? Feel free to open an issue (or, even better, a PR)! Discussion and feedback is always appreciated.
-
-## Special Thanks
-
-Some ideas in ember-app-kit originated in work by Yapp Labs (@yapplabs) with McGraw-Hill Education Labs (@mhelabs) on [yapplabs/glazier](https://github.com/yapplabs/glazier). Thanks to Yapp and MHE for supporting the Ember ecosystem!
-
-## License
-
-Copyright 2013 by Stefan Penner and Ember App Kit Contributors, and licensed under the MIT License. See included
-[LICENSE](/stefanpenner/ember-app-kit/blob/master/LICENSE) file for details.
+## Deployment
+...but once you do it you should just be able to run `grunt deploy` in the project's root and to the internet it will go.
