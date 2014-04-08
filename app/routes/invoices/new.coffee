@@ -1,20 +1,21 @@
 InvoicesNewRoute = Ember.Route.extend
-  model: ->
-    client = @modelFor('client')
-    (->
-      if client.get('tasks')?
-        Ember.RSVP.resolve client.get('tasks')
+  beforeModel: ->
+    (=>
+      if @modelFor('client').get('tasks')?
+        Ember.RSVP.resolve @modelFor('client').get('tasks')
       else
-        client.getTasks()
+        @modelFor('client').getTasks()
     )().then (tasks) =>
-      taskPromises = tasks.map (task) =>
-        if task.get('timers')?
-          Ember.RSVP.resolve task
-        else
-          task.getTimers()
-      Ember.RSVP.all taskPromises
-    .then (tasks) =>
-      @createInvoice()
+      Ember.RSVP.all(
+        tasks.map (task) =>
+          if task.get('timers')?
+            Ember.RSVP.resolve task
+          else
+            task.getTimers()
+      )
+
+  model: ->
+    @createInvoice()
 
   createInvoice: ->
     client = @modelFor('client')
