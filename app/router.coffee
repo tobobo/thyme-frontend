@@ -3,6 +3,7 @@ Router = Ember.Router.extend
 
 Router.map ->
   @route '/'
+  
   @resource 'clients',
     path: 'clients'
   , ->
@@ -22,5 +23,11 @@ Router.map ->
           path: ':invoiceNumber'
         @route 'new',
           path: 'new'
+
+  @resource 'invoicePreviews',
+    path: 'invoices'
+  , ->
+    @resource 'invoicePreview',
+      path: ':invoicePreviewId'
 
 `export default Router`

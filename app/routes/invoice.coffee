@@ -7,8 +7,8 @@ InvoiceRoute = Ember.Route.extend
 
   afterModel: (model) ->
     model.set 'client', @modelFor('client')
-    if model.get('download')
-      window.open model.get('fileUrl'), '_blank'
+    # if model.get('download')
+    #   window.open model.get('fileUrl'), '_blank'
 
   serialize: (model) ->
     invoiceNumber: model.get('number')
