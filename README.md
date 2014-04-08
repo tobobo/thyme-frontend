@@ -1,9 +1,9 @@
-#### Thyme Frontend
+# Thyme Frontend
 based on Ember App Kit
 
-### S3 
+## S3 
 
-## Setup
+### Setup
 Go to the [S3 Management Console](https://console.aws.amazon.com/s3/home) and create a new S3 bucket. Let's call it my-thyme-bucket.
 
 Edit the bucket's properties, go to "Static Website Hosting" and click "Enable website hosting." Enter index.html for both the "Index document" and "Error document" fields. This will ensure all requests go to the Ember app.
@@ -52,7 +52,7 @@ Click on your new user in the user list and go to the "Permissions" tab for that
 
 Seems kinda complicated. I agree.
 
-## Configuration
+### Configuration
 
 Now, you need to set the app's configuration for accessing your newly created bucket. Either set the config variables specified in tasks/options/s3.js or add the credentials directly to the file (you might want to remove it from git if you do this so that others don't see it).
 
@@ -60,5 +60,5 @@ The s3 region can be seen in your bucket's static web host URL (static hosting U
 
 Copy config/environments/production.js.sample to config/environments/production.js and add the host of the thyme backend you'll be using. Also, in your thyme backend, be sure the URL of your client is present as a regex in your configuration's clients array so that requests will be allowed from your client.
 
-## Deployment
-...but once you do it you should just be able to run `grunt deploy` in the project's root and to the internet it will go.
+### Deployment
+Run `grunt deploy` in the project's root and to the internet it will go.
