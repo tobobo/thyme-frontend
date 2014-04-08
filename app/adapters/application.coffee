@@ -1,5 +1,5 @@
 ApplicationAdapter = DS.RESTAdapter.extend
-  host: window.env.THYME_BACKEND_URL
+  host: window.ENV.THYME_BACKEND_URL
   ajaxOptions: (url, type, hash) ->
     hash = hash || {}
     hash.xhrFields = hash.xhrFields || {}
