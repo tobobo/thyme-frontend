@@ -6,10 +6,11 @@ Task = DS.Model.extend
   filteredTimers: (->
     if @get('startDate') or @get('endDate')?
       if @get('timers')?
+        endDate = new Date moment(@get('endDate')).add('days', 1)
         filteredTimers = @get('timers').filter (timer) =>
           valid = true
           if @get('startDate')? then valid = valid and timer.get('endTime') > @get('startDate')
-          if @get('endDate')? then valid = valid and timer.get('startTime') < @get('endDate')
+          if @get('endDate')? then valid = valid and timer.get('startTime') < endDate
           valid
         filteredTimers
     else

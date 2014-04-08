@@ -21,7 +21,7 @@ Client = DS.Model.extend
 
   createInvoice: ->
     if @get('invoices.lastObject.endDate')
-      startDate = new Date(moment(@modelFor('invoices').get('lastObject.endDate')).add('days', 1))
+      startDate = new Date(moment(@get('invoices.lastObject.endDate')).add('days', 1))
     else
       startDate = new Date()
       @get('tasks').forEach (task) =>

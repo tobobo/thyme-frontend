@@ -7,5 +7,9 @@ RenderInvoiceComponent = Ember.Component.extend
   updateHTML: ->
     $el = @$()
     if $el?
-      @set 'invoice.html', @$().html().replace(/<script[^<]*<\/script>/g, '')
+      @set 'invoice.html', 
+        @$().html()
+          .replace(/<script[^<]*<\/script>/g, '')
+          .replace(/invoice-container/g, "invoice-container-#{Math.round(Math.random()*1000000)}")
+          
 `export default RenderInvoiceComponent`
