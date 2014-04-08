@@ -19,4 +19,24 @@ Client = DS.Model.extend
       tasks.setEach 'client', @
       Ember.RSVP.resolve tasks
 
+  createInvoice: ->
+    if @get('invoices.lastObject.endDate')
+      startDate = new Date(moment(@modelFor('invoices').get('lastObject.endDate')).add('days', 1))
+    else
+      startDate = new Date()
+      @get('tasks').forEach (task) =>
+        task.get('timers').forEach (timer) =>
+          thisStartTime = timer.get('startTime')
+          if thisStartTime < startDate
+            startDate = thisStartTime
+      startDate
+    invoice = @store.createRecord 'invoice',
+      clientId: @get('id')
+      number: @get('invoicePrefix') + @get('nextInvoiceFormatted')
+      createdAt: new Date()
+      startDate: startDate
+      endDate: new Date()
+    invoice.set 'client', @
+    invoice
+
 `export default Client`

@@ -12,8 +12,7 @@ TaskRoute = Ember.Route.extend
     if model.get('timers')?
       Ember.RSVP.resolve model
     else
-      model.getTimers().then (task) =>
-        Ember.RSVP.resolve task
+      model.getTimers()
 
   serialize: (model) ->
     taskSlug: model.get('slug')
