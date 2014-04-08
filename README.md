@@ -54,7 +54,7 @@ Seems kinda complicated. I agree.
 
 ### Configuration
 
-Now, you need to set the app's configuration for accessing your newly created bucket. Either set the config variables specified in [tasks/options/s3.js] or add the credentials directly to the file (you might want to remove it from git if you do this so that others don't see it).
+Now, you need to set the app's configuration for accessing your newly created bucket. Either set the config variables specified in (tasks/options/s3.js) or add the credentials directly to the file (you might want to remove it from git if you do this so that others don't see it).
 
 The s3 region can be seen in your bucket's static web host URL (static hosting URLs are of the format http://[bucket name].s3-website-[bucket region].amazonaws.com). Get the Access Key ID and Secret Access Key from the csv file you downloaded from Amazon after creating your new IAM user.
 
