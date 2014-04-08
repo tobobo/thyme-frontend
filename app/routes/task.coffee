@@ -1,12 +1,20 @@
 TaskRoute = Ember.Route.extend
   model: (params) ->
+    model = null
     @store.find 'task',
       slug: params.taskSlug
       clientId: @modelFor('client').get('id')
     .then (tasks) =>
       Ember.RSVP.resolve tasks.get('firstObject')
-    , (error) =>
-      reject error
+    .then (task) =>
+      model = task
+      @store.find 'timer',
+        taskId: model.get('id')
+    .then (timers) =>
+      timers.setEach 'task', model
+      timers.setEach 'client', @modelFor('client')
+      model.set 'timers', timers
+      Ember.RSVP.resolve model
 
   afterModel: (model) ->
     model.set 'client', @modelFor('client')

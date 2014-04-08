@@ -3,33 +3,29 @@ Task = DS.Model.extend
   slug: DS.attr 'string'
   clientId: DS.attr 'string'
   duration: DS.attr 'number'
+  filteredTimers: (->
+    console.log 'filtering timers'
+    if @get('startDate') or @get('endDate')?
+      @get('timers').filter (timer) =>
+        valid = true
+        if @get('startDate')? then valid = valid and timer.get('endTime') > @get('startDate')
+        if @get('endDate')? then valid = valid and timer.get('startTime') < @get('endDate')
+        valid
+    else
+      null
+  ).property 'startDate', 'endDate'
   calculatedDuration: (->
-    if @cacheFor('timers')?
-      @get('timers').mapProperty('duration').reduce (a, b) ->
+    timers = if @get('startDate')? or @get('endDate')? then @get('filteredTimers') else @get('timers')
+    if timers
+      timers.mapProperty('duration').reduce (a, b) ->
         a + b
       , 0
     else
       @get('duration') or 0
-  ).property 'timers.@each.duration'
-  timers: ((prop, value) ->
-    if value? then value
-    else
-      if @get('id')?
-        @store.find 'timer',
-          taskId: @get('id')
-        .then (timers) =>
-          timers.setEach 'task', @
-          @set prop, timers
-        , (error) =>
-          console.log 'error getting timers', error
-      else
-        @set prop, Ember.ArrayProxy.create
-          content: []
-
-      Ember.ArrayProxy.create
-        content: []
-        isLoading: true
-  ).property 'id'
+  ).property 'timers.@each.duration', 'filteredTimers.@each', 'duration', 'startDate', 'endDate'
+  datesChanged: (->
+    console.log 'dates changed'
+  ).observesBefore 'startDate', 'endDate'
   calculatedRate: (->
     rate = @get('rate') or @get('client.rate')
     if rate then rate else null

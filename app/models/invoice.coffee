@@ -5,6 +5,13 @@ Invoice = DS.Model.extend Ember.Evented,
   createdAt: DS.attr 'date'
   fileUrl: DS.attr 'string'
   path: DS.attr 'string'
+  startDate: DS.attr 'date'
+  endDate: DS.attr 'date'
+  filteredTasks: (->
+    if @get('client.tasks')?
+      @get('client.tasks').filter (task) =>
+        task.get('calculatedEarnings') > 0
+  ).property 'client.tasks.@each.calculatedEarnings'
   totalEarnings: (->
     if @get('client.tasks')?
       @get('client.tasks').mapBy('calculatedEarnings').reduce (a, b) ->
