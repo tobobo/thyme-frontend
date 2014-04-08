@@ -18,7 +18,15 @@ Client = DS.Model.extend
       @set 'tasks', tasks
       tasks.setEach 'client', @
       Ember.RSVP.resolve tasks
-
+  newTask: (->
+    if @get('id')?
+      task = @store.createRecord 'task',
+        clientId: @get('id')
+      task.one 'didCreate', (thisTask) =>
+        @get('tasks').pushObject task
+      task.set 'client', @
+      task
+  ).property 'id', 'newTask.isNew'
   createInvoice: ->
     if @get('invoices.lastObject.endDate')
       startDate = new Date(moment(@get('invoices.lastObject.endDate')).add('days', 1))

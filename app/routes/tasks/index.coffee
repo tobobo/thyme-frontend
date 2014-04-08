@@ -4,7 +4,7 @@ TasksIndexRoute = Ember.Route.extend
 
   afterModel: (model) ->
     currentTimer = Ember.get('App.applicationController.currentTimer')
-    if currentTimer? and currentTimer.get('client.id') == @modelFor('client').get('id')
+    if currentTimer? and currentTimer.get('task.client.id') == @modelFor('client').get('id')
       @transitionTo 'task', currentTimer.get('task')
     else
       firstTask = model.get('firstObject')

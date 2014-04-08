@@ -49,7 +49,19 @@ Task = DS.Model.extend
     .then (timers) =>
       @set 'timers', timers
       timers.setEach 'task', @
-      timers.setEach 'client', @get 'client'
       Ember.RSVP.resolve @
+
+  newTimer: (->
+    if @get('id')?
+      timer = @store.createRecord 'timer',
+        taskId: @get('id')
+        client: @get('client')
+      timer.one 'didCreate', (thisTimer) =>
+        if thisTimer.get('running')
+          Ember.get('App.applicationController').setTimer thisTimer
+        @get('timers').pushObject thisTimer
+      timer.set 'task', @
+      timer
+  ).property 'id', 'newTimer.isNew'
 
 `export default Task`
