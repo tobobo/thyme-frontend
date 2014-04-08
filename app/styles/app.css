@@ -6,13 +6,24 @@ body {
 }
 
 @media screen {
-  .invoice-container {
+  div[class*=invoice-container] {
     -webkit-transform: scale(0.8) translateX(-15%) translateY(-10%);
     margin: 20px;
-    width: 816px;
     box-shadow: 0 2px 15px rgba(0,0,0,0.5);
+    width: 816px;
     min-height: 1056px;
   }
+}
+
+.mini-invoice {
+    width: 200px;
+    height: 258.8px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.mini-invoice [class*=invoice-container]  {
+    -webkit-transform: scale(0.242) translateX(-166%) translateY(-164%);
 }
 
 a {

@@ -18,6 +18,8 @@ TaskRoute = Ember.Route.extend
 
   afterModel: (model) ->
     model.set 'client', @modelFor('client')
+    unless model.get('timers')?
+      model.set 'timers', []
 
   serialize: (model) ->
     taskSlug: model.get('slug')

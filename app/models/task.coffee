@@ -3,35 +3,43 @@ Task = DS.Model.extend
   slug: DS.attr 'string'
   clientId: DS.attr 'string'
   duration: DS.attr 'number'
-  filteredTimers: (->
+  filteredTimers: null
+  datesChanged: (->
     console.log 'filtering timers'
     if @get('startDate') or @get('endDate')?
-      @get('timers').filter (timer) =>
+      @set 'filteredTimers', @get('timers').filter (timer) =>
         valid = true
         if @get('startDate')? then valid = valid and timer.get('endTime') > @get('startDate')
         if @get('endDate')? then valid = valid and timer.get('startTime') < @get('endDate')
         valid
     else
-      null
-  ).property 'startDate', 'endDate'
+      @set 'filteredTimers', null
+  ).observes 'startDate', 'endDate'
+  invoiceDuration: (->
+    @calculateDuration @get('filteredTimers'), @get('duration')
+  ).property 'filteredTimers.@each.duration', 'startDate', 'endDate'
   calculatedDuration: (->
-    timers = if @get('startDate')? or @get('endDate')? then @get('filteredTimers') else @get('timers')
-    if timers
-      timers.mapProperty('duration').reduce (a, b) ->
-        a + b
-      , 0
-    else
-      @get('duration') or 0
-  ).property 'timers.@each.duration', 'filteredTimers.@each', 'duration', 'startDate', 'endDate'
-  datesChanged: (->
-    console.log 'dates changed'
-  ).observesBefore 'startDate', 'endDate'
+    @calculateDuration @get('timers'), @get('duration')
+  ).property 'timers.@each.duration', 'duration'
   calculatedRate: (->
     rate = @get('rate') or @get('client.rate')
     if rate then rate else null
   ).property 'client.rate', 'rate'
   calculatedEarnings: (->
-    @get('calculatedDuration')*@get('calculatedRate')/(60*60)
+    @calculateEarnings @get('calculatedDuration'), @get('calculatedRate')
   ).property 'calculatedDuration', 'calculatedRate'
+  invoiceEarnings: (->
+    @calculateEarnings @get('invoiceDuration'), @get('calculatedRate')
+  ).property 'invoiceDuration', 'calculatedRate'
+  calculateDuration: (timers, duration) ->
+    if timers
+      timers.mapProperty('duration').reduce (a, b) ->
+        a + b
+      , 0
+    else
+      duration or 0
+
+  calculateEarnings: (duration, rate) ->
+    duration*rate/(60*60)
 
 `export default Task`

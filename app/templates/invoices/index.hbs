@@ -1,0 +1,7 @@
+<ul>
+  {{#each}}
+    {{#link-to 'invoice' this tagName='li'}}
+      <div class="mini-invoice">{{{html}}}</div> {{number}} - {{x-date createdAt 'M/D/YYYY'}}
+    {{/link-to}}
+  {{/each}}
+</ul>

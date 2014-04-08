@@ -44,14 +44,6 @@ InvoicesNewRoute = Ember.Route.extend
     model.set 'client', @modelFor('client')
     @modelFor('client').get('tasks').setEach 'startDate', model.get('startDate')
     @modelFor('client').get('tasks').setEach 'endDate', model.get('endDate')
-    console.log @modelFor('client').get('tasks.firstObject')
-
-  exit: ->
-    tasks = @modelFor('client').get('tasks')
-    if tasks?
-      tasks.setEach 'filteredTimers', null
-      tasks.setEach 'startDate', null
-      tasks.setEach 'endDate', null
 
 
 `export default InvoicesNewRoute`

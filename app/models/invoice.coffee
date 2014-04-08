@@ -10,23 +10,23 @@ Invoice = DS.Model.extend Ember.Evented,
   filteredTasks: (->
     if @get('client.tasks')?
       @get('client.tasks').filter (task) =>
-        task.get('calculatedEarnings') > 0
-  ).property 'client.tasks.@each.calculatedEarnings'
+        task.get('invoiceEarnings') > 0
+  ).property 'client.tasks.@each.invoiceEarnings'
   totalEarnings: (->
     if @get('client.tasks')?
-      @get('client.tasks').mapBy('calculatedEarnings').reduce (a, b) ->
+      @get('client.tasks').mapBy('invoiceEarnings').reduce (a, b) ->
         a + b
       , 0
     else
       0
-  ).property 'client.tasks.@each.calculatedEarnings'
+  ).property 'client.tasks.@each.invoiceEarnings'
   totalDuration: (->
     if @get('client.tasks')?
-      @get('client.tasks').mapBy('calculatedDuration').reduce (a, b) ->
+      @get('client.tasks').mapBy('invoiceDuration').reduce (a, b) ->
         a + b
       , 0
     else
       0
-  ).property 'client.tasks.@each.calculatedDuration'
+  ).property 'client.tasks.@each.invoiceDuration'
 
 `export default Invoice`
