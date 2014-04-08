@@ -1,8 +1,6 @@
 InvoicesNewController = Ember.ObjectController.extend
   datesDidChange: (->
-    console.log 'dates changed', @get('startDate'), @get('endDate'), @get('model.client.tasks.length')
     if @get('model.client.tasks')?
-      console.log 'tasks should be getting dates'
       @get('model.client.tasks').setEach 'startDate', @get('startDate')
       @get('model.client.tasks').setEach 'endDate', @get('endDate')
   ).observes('model.client.tasks.@each', 'startDate', 'endDate')

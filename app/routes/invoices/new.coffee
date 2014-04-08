@@ -11,12 +11,7 @@ InvoicesNewRoute = Ember.Route.extend
         if task.get('timers')?
           Ember.RSVP.resolve task
         else
-          @store.find 'timer',
-            taskId: task.get('id')
-          .then (timers) =>
-            task.set 'timers', timers
-            timers.setEach 'task', task
-            Ember.RSVP.resolve task
+          task.getTimers()
       Ember.RSVP.all taskPromises
     .then (tasks) =>
       @createInvoice()

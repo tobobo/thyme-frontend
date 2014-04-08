@@ -8,18 +8,21 @@ TaskRoute = Ember.Route.extend
       Ember.RSVP.resolve tasks.get('firstObject')
     .then (task) =>
       model = task
-      @store.find 'timer',
-        taskId: model.get('id')
-    .then (timers) =>
-      timers.setEach 'task', model
-      timers.setEach 'client', @modelFor('client')
-      model.set 'timers', timers
+      task.getTimers()
+    .then (task) =>
+      task.get('timers').setEach 'task', model
+      task.get('timers').setEach 'client', @modelFor('client')
+      model.set 'timers', task.get('timers')
       Ember.RSVP.resolve model
 
   afterModel: (model) ->
     model.set 'client', @modelFor('client')
-    unless model.get('timers')?
-      model.set 'timers', []
+    if model.get('timers')?
+      Ember.RSVP.resolve model
+    else
+      model.getTimers().then (task) =>
+        model.set 'timers', task.get('timers')
+        Ember.RSVP.resolve model
 
   serialize: (model) ->
     taskSlug: model.get('slug')

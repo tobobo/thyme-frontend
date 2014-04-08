@@ -46,8 +46,16 @@
   margin: 0;
 }
 
-.invoice-container ul.tasks li:nth-child(odd):not(.total, .headings) {
+.invoice-container ul.tasks li:nth-child(odd) {
   background-color: #F8F8FF;
+}
+
+.invoice-container ul.tasks li.headings {
+  background-color: inherit;
+}
+
+.invoice-container ul.tasks li.total {
+  background-color: inherit;
 }
 
 .invoice-container ul.tasks li span {

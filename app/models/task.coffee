@@ -3,24 +3,24 @@ Task = DS.Model.extend
   slug: DS.attr 'string'
   clientId: DS.attr 'string'
   duration: DS.attr 'number'
-  filteredTimers: null
-  datesChanged: (->
-    console.log 'filtering timers'
+  filteredTimers: (->
     if @get('startDate') or @get('endDate')?
-      @set 'filteredTimers', @get('timers').filter (timer) =>
-        valid = true
-        if @get('startDate')? then valid = valid and timer.get('endTime') > @get('startDate')
-        if @get('endDate')? then valid = valid and timer.get('startTime') < @get('endDate')
-        valid
+      if @get('timers')?
+        filteredTimers = @get('timers').filter (timer) =>
+          valid = true
+          if @get('startDate')? then valid = valid and timer.get('endTime') > @get('startDate')
+          if @get('endDate')? then valid = valid and timer.get('startTime') < @get('endDate')
+          valid
+        filteredTimers
     else
-      @set 'filteredTimers', null
-  ).observes 'startDate', 'endDate'
+      null
+  ).property 'startDate', 'endDate', 'timers.@each'
   invoiceDuration: (->
     @calculateDuration @get('filteredTimers'), @get('duration')
   ).property 'filteredTimers.@each.duration', 'startDate', 'endDate'
   calculatedDuration: (->
     @calculateDuration @get('timers'), @get('duration')
-  ).property 'timers.@each.duration', 'duration'
+  ).property 'id', 'timers.@each.duration', 'duration'
   calculatedRate: (->
     rate = @get('rate') or @get('client.rate')
     if rate then rate else null
@@ -32,7 +32,7 @@ Task = DS.Model.extend
     @calculateEarnings @get('invoiceDuration'), @get('calculatedRate')
   ).property 'invoiceDuration', 'calculatedRate'
   calculateDuration: (timers, duration) ->
-    if timers
+    if timers?
       timers.mapProperty('duration').reduce (a, b) ->
         a + b
       , 0
@@ -41,5 +41,14 @@ Task = DS.Model.extend
 
   calculateEarnings: (duration, rate) ->
     duration*rate/(60*60)
+
+  getTimers: ->
+    @store.find 'timer',
+      taskId: @get('id')
+    .then (timers) =>
+      @set 'timers', timers
+      timers.setEach 'task', @
+      timers.setEach 'client', @get('client')
+      Ember.RSVP.resolve @
 
 `export default Task`
