@@ -11,6 +11,6 @@ ApplicationController = Ember.ObjectController.extend
   actions:
     openCurrentTimer: ->
       if @get('currentTimer')?
-        @transitionToRoute 'task', @get('currentTimer.client'), @get('currentTimer.task')
+        @transitionToRoute 'task', @get('currentTimer.task.client'), @get('currentTimer.task')
 
 `export default ApplicationController`

@@ -48,7 +48,7 @@ Task = DS.Model.extend
     .then (timers) =>
       @set 'timers', timers
       timers.setEach 'task', @
-      timers.setEach 'client', @get('client')
+      timers.setEach 'client', @get 'client'
       Ember.RSVP.resolve @
 
 `export default Task`
