@@ -1,6 +1,8 @@
 ClientIndexRoute = Ember.Route.extend
-  afterModel: ->
-    @transitionTo 'tasks'
+  model: ->
+    @modelFor 'client'
+  beforeModel: (transition) ->
+    @replaceWith 'tasks'
 
 
 `export default ClientIndexRoute`

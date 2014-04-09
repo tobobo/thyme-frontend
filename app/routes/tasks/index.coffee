@@ -2,13 +2,14 @@ TasksIndexRoute = Ember.Route.extend
   model: ->
     @modelFor('tasks')
 
-  afterModel: (model) ->
+  beforeModel: (transition) ->
     currentTimer = Ember.get('App.applicationController.currentTimer')
     if currentTimer? and currentTimer.get('task.client.id') == @modelFor('client').get('id')
-      @transitionTo 'task', currentTimer.get('task')
+      transition.then => @replaceWith 'task', currentTimer.get('task')
     else
-      firstTask = model.get('firstObject')
-      if firstTask? then @transitionTo 'task', firstTask
-    true
+      firstTask = @modelFor('tasks').get('firstObject')
+      if firstTask? then transition.then => @replaceWith 'task', firstTask
+    return
+
 
 `export default TasksIndexRoute`

@@ -2,13 +2,13 @@ ClientsIndexRoute = Ember.Route.extend
   model: ->
     @modelFor('clients')
 
-  afterModel: (model) ->
+  beforeModel: (transition) ->
     if Ember.get('App.applicationController.currentTimer')?
-      Ember.get('App.applicationController').send 'openCurrentTimer'
+      transition.then => Ember.get('App.applicationController').send 'openCurrentTimer'
     else
-      firstClient = model.get('firstObject')
+      firstClient = @modelFor('clients').get('firstObject')
       if firstClient?
-        @transitionTo 'client', firstClient
-    true
+        transition.then => @replaceWith 'client', firstClient
+    return
 
 `export default ClientsIndexRoute`

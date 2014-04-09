@@ -1,5 +1,5 @@
 InvoicePreviewsIndexRoute = Ember.Route.extend
-  beforeModel: ->
-    @transitionTo 'index'
+  beforeModel: (transition) ->
+    @replaceWith 'index'
 
 `export default InvoicePreviewsIndexRoute`
