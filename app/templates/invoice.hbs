@@ -1,4 +1,4 @@
-<a {{bind-attr href=fileUrl}} target="_blank">Download Invoice as PDF</a>
+{{#if fileUrl}}<a {{bind-attr href=fileUrl}} target="_blank">Download Invoice as PDF</a>{{/if}}
 {{#link-to 'invoicePreview' model target='_blank'}}Open Preview{{/link-to}}
 
 {{{html}}}
