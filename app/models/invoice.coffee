@@ -7,6 +7,11 @@ Invoice = DS.Model.extend Ember.Evented,
   path: DS.attr 'string'
   startDate: DS.attr 'date'
   endDate: DS.attr 'date'
+  datesDidChange: (->
+    if @get('client.tasks')?
+      @get('client.tasks').setEach 'startDate', @get('startDate')
+      @get('client.tasks').setEach 'endDate', @get('endDate')
+  ).observes('client.tasks.@each', 'startDate', 'endDate')
   filteredTasks: (->
     if @get('client.tasks')?
       @get('client.tasks').filter (task) =>
