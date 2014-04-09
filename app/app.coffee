@@ -1,6 +1,6 @@
 `import Resolver from 'ember/resolver'`
 
-`import applicationControllerInitializer from 'appkit/initializers/application_controller'`
+`import 'appkit/initializers/common_controller'`
 
 App = Ember.Application.extend
   # LOG_ACTIVE_GENERATION: true

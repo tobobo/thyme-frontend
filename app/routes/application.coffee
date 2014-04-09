@@ -20,6 +20,6 @@ ApplicationRoute = Ember.Route.extend
         Ember.RSVP.resolve model
 
   setupController: (controller, model) ->
-    controller.set 'currentTimer', model
+    @set 'common.currentTimer', model
 
 `export default ApplicationRoute`

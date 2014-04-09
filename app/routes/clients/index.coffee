@@ -3,8 +3,8 @@ ClientsIndexRoute = Ember.Route.extend
     @modelFor('clients')
 
   beforeModel: (transition) ->
-    if @controllerFor('application').get('currentTimer')?
-      transition.then => @controllerFor('application').send 'openCurrentTimer'
+    if @get('common.currentTimer')?
+      transition.then => @get('common').send 'openCurrentTimer'
     else
       firstClient = @modelFor('clients').get('firstObject')
       if firstClient?
