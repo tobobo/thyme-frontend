@@ -3,7 +3,7 @@ TasksIndexRoute = Ember.Route.extend
     @modelFor('tasks')
 
   beforeModel: (transition) ->
-    currentTimer = Ember.get('App.applicationController.currentTimer')
+    currentTimer = @controllerFor('application').get('currentTimer')
     if currentTimer? and currentTimer.get('task.client.id') == @modelFor('client').get('id')
       transition.then => @replaceWith 'task', currentTimer.get('task')
     else

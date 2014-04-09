@@ -216,8 +216,9 @@ module.exports = function(grunt) {
   grunt.registerTask('buildScripts', filterAvailable([
                      'jshint:app',
                      'jshint:tests',
-                     'validate-imports:app',
-                     'validate-imports:tests',
+                     // don't validate imports cause it messes up with some coffeescript stuff
+                     //'validate-imports:app',
+                     //'validate-imports:tests',
                      'coffee',
                      'emberscript',
                      'copy:javascriptToTmp',

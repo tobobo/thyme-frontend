@@ -1,4 +1,8 @@
 TaskController = Ember.ObjectController.extend
+  newTimerDidCreate: (->
+    if @get('newTimer.id')
+      @appC.setTimer @get('newTimer')
+  ).observes 'newTimer.id'
   sortedTimers: Ember.computed.sort 'timers', (a, b) ->
     aEnd = a.get('endTime')
     bEnd = b.get('endTime')
