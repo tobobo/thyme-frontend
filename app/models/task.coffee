@@ -33,7 +33,7 @@ Task = DS.Model.extend
     @calculateEarnings @get('invoiceDuration'), @get('calculatedRate')
   ).property 'invoiceDuration', 'calculatedRate'
   calculateDuration: (timers, duration) ->
-    if timers?
+    if timers? and not timers.get('isLoading')
       timers.mapProperty('duration').reduce (a, b) ->
         a + b
       , 0
