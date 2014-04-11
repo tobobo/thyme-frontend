@@ -44,12 +44,18 @@ Task = DS.Model.extend
     duration*rate/(60*60)
 
   getTimers: ->
-    @store.find 'timer',
-      taskId: @get('id')
-    .then (timers) =>
-      @set 'timers', timers
-      timers.setEach 'task', @
-      Ember.RSVP.resolve @
+    if @get('timers')? and @get('timers').reload?
+      @get('timers').reload()
+    else
+      @set 'timers', Ember.ArrayProxy.create
+        isLoading: true
+        content: []
+      @store.find 'timer',
+        taskId: @get('id')
+      .then (timers) =>
+        timers.setEach 'task', @
+        @get('timers').pushObjects timers.get('content')
+        Ember.RSVP.resolve @
 
   newTimer: (->
     if @get('id')?

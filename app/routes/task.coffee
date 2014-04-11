@@ -9,9 +9,7 @@ TaskRoute = Ember.Route.extend
 
   afterModel: (model) ->
     model.set 'client', @modelFor('client')
-    if model.get('timers')?
-      Ember.RSVP.resolve model
-    else
+    unless model.get('timers')?
       model.getTimers()
 
   serialize: (model) ->
