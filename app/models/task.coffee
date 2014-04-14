@@ -55,6 +55,7 @@ Task = DS.Model.extend
       .then (timers) =>
         timers.setEach 'task', @
         @get('timers').pushObjects timers.get('content')
+        @set 'timers.isLoading', false
         Ember.RSVP.resolve @
 
   newTimer: (->
