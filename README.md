@@ -1,5 +1,6 @@
 # Thyme Frontend
-based on Ember App Kit
+
+Time tracking app for freelancers.
 
 ## S3 
 
