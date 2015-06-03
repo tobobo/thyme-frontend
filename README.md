@@ -1,6 +1,6 @@
 # Thyme Frontend
 
-Time tracking app for freelancers.
+Track time spent on different jobs for multiple clients with automatic invoice creation. Allows timers to be accessed on multiple devices, and doesn't contain anything unnecessary. 
 
 ## S3 
 
